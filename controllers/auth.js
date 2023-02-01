@@ -21,7 +21,7 @@ exports.auth_signup_get = (req, res) => {
 // HTTP POST - Signup Route - To post the data
 exports.auth_signup_post = (req, res) => {
   let user = new User(req.body);
-
+  console.log("posted", req.body)
   let hash = bcrypt.hashSync(req.body.password, salt);
   console.log(hash);
 
@@ -85,7 +85,7 @@ exports.auth_signin_post = async (req, res) => {
 
     jwt.sign(
       payload,
-      process.env.SECRET,
+     ' process.env.SECRET',
       { expiresIn: 36000000 },
       (err, token) => {
         if (err) throw err;
