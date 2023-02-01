@@ -4,6 +4,9 @@ const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
 
+// Require isLoggedIn
+const isLoggedIn = require("../helper/isLoggedIn");
+
 let methodOverride = require("method-override");
 router.use(methodOverride('_method'))
 
@@ -11,7 +14,7 @@ router.use(methodOverride('_method'))
 const articleCntrl = require("../controllers/articles");
 
 // Routes
-router.get("/article/add", articleCntrl.article_create_get);
+router.get("/article/add", isLoggedIn, articleCntrl.article_create_get);
 router.post("/article/add", articleCntrl.article_create_post);
 
 router.get("/article/index", articleCntrl.article_index_get);

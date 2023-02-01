@@ -6,7 +6,7 @@
         <th> Content </th>
         <th> Is Published </th>
         <th> Total Words </th>
-        <th> Author </th>
+        <!-- <th> Author </th> -->
         <th> Created At </th>
         <th> Updated At </th>
         <th> Edit </th>
@@ -19,7 +19,7 @@
         <td> <%= article.content %> </td>
         <td> <%= article.isPublished %> </td>
         <td> <%= article.totalWords %> </td>
-        <td> <%= article.author %> </td>
+        <!-- <td> <%= article.author.name %> </td> -->
         <td> <%= moment(article.createdAt).fromNow() %> </td>
         <td> <%= moment(article.updatedAt).fromNow() %> </td>
 

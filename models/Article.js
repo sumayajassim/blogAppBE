@@ -7,7 +7,11 @@ const articleSchema = mongoose.Schema({
     content: String,
     isPublished: Boolean,
     totalWords: Number,
-    author: String,
+    author: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Author'
+    }]
+    // author: String,
     // createdAt: {
     //     type: Date,
     //     default: Date.now

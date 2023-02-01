@@ -1,11 +1,19 @@
 // Require Model
 const Article = require("../models/Article");
+const Author = require("../models/Author");
 
 // Require Moment
 const moment = require('moment');
 
 exports.article_create_get = (req, res) =>{
-    res.render("article/add");
+    // res.render("article/add");
+    Author.find()
+    .then((authors) => {
+        res.render("article/add", { authors })
+    })
+    .catch(err => {
+        console.log(err)
+    });
 }
 
 exports.article_create_post = (req, res) => {
@@ -15,17 +23,32 @@ exports.article_create_post = (req, res) => {
     // Save article
     article.save()
     .then(()=>{
+        // res.redirect("/article/index");
+        // Reference Schema
+        req.body.author.forEach(author => {
+            Author.findById(author, (err, author) => {
+                author.article.push(article);
+                author.save();
+            })
+        });
         res.redirect("/article/index");
     })
     .catch((err) => {
         console.log(err);
         res.send("Please try again later");
     });
+
+    // Embedded Schema
+    // Author.findById(req.body.author, (err, author) => {
+    //     author.article.push(article);
+    //     author.save();
+    //     res.redirect("/author/index");
+    // })
 }
 
 // HTTP GET - Article Index
 exports.article_index_get = (req, res) => {
-    Article.find()
+    Article.find().populate('author')
     .then(articles => {
         res.render("article/index", {articles, moment})
     })
@@ -37,7 +60,7 @@ exports.article_index_get = (req, res) => {
 // HTTP GET - Article by ID
 exports.article_show_get = (req, res) => {
     console.log(req.query.id);
-    Article.findById(req.query.id)
+    Article.findById(req.query.id).populate('author')
     .then(article => {
         res.render("article/detail", {article, moment})
     })

@@ -24,8 +24,15 @@
 
     <div class="form-group">
         <label>Author</label>
-        <input type="text" name="author" class="form-control">
+        <select name="author[]" multiple="multiple" class="form-control">
+            <% authors.forEach(function(author){ %>
+            
+                <option value="<%= author._id %>"><%= author.name %></option>
+            
+            <% }) %>
+        </select>
     </div>
+    
     <br>
     <button type="submit" class="btn btn-primary">Create Article</button>
 

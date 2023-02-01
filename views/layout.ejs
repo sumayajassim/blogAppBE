@@ -17,9 +17,28 @@
     <hr>
 
     <nav>
-        <a href="/article/index">Articles</a>
-        <a href="/article/add">Add Article</a>
-    </nav>
+        <a href="/article/index" class="btn btn-outline-primary">Articles</a>
+        <a href="/article/add" class="btn btn-outline-primary">Add Article</a>
+
+        <a href="/author/index" class="btn btn-outline-primary">Authors</a>
+        <a href="/author/add" class="btn btn-outline-primary">Add Author</a>
+
+
+       
+  
+
+    <% if(currentUser) { %>
+
+        <a href="/auth/logout" class="btn btn-outline-primary">Logout</a>
+        Hi <%= currentUser.firstName %> <%= currentUser.lastName %>
+    <% } else { %>
+
+        <a href="/auth/signin" class="btn btn-outline-primary">Signin</a>
+        <a href="/auth/signup" class="btn btn-outline-primary">Create new Account</a>
+
+    <% } %>
+
+</nav>
 
     <%- body %>
 
